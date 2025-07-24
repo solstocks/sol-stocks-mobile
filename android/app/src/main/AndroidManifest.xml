@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.solstocksmobile">
+
+    <!-- Internet permission for Solana network communication -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
+    <!-- Biometric authentication -->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    
+    <!-- Camera for QR code scanning (Solana Pay) -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    
+    <!-- Vibration for haptic feedback -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    
+    <!-- Secure hardware features -->
+    <uses-feature
+        android:name="android.hardware.fingerprint"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.biometrics"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    
+    <!-- Solana Mobile Stack features -->
+    <uses-feature
+        android:name="solanamobile.wallet"
+        android:required="false" />
+
+    <application
+        android:name=".MainApplication"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:allowBackup="false"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        android:hardwareAccelerated="true">
+        
+        <!-- Main Activity -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+            android:windowSoftInputMode="adjustResize">
+            
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            
+            <!-- Solana Pay deep links -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Handle solana: scheme for Solana Pay -->
+                <data android:scheme="solana" />
+            </intent-filter>
+            
+            <!-- Handle HTTPS deep links for Solana Pay -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https"
+                    android:host="solstocks.com" />
+            </intent-filter>
+        </activity>
+        
+        <!-- Solana Mobile Stack Activity (for wallet adapter) -->
+        <activity
+            android:name="com.solanamobile.mobilewalletadapter.walletlib.scenario.LocalAssociationScenario"
+            android:exported="false" />
+        
+        <!-- dApp Store metadata -->
+        <meta-data
+            android:name="solanamobile.dapp.name"
+            android:value="Sol Stocks" />
+        <meta-data
+            android:name="solanamobile.dapp.description"
+            android:value="Trade stocks with SOL and BONK on Solana blockchain" />
+        <meta-data
+            android:name="solanamobile.dapp.category"
+            android:value="Finance" />
+        <meta-data
+            android:name="solanamobile.dapp.version"
+            android:value="1.0.0" />
+        <meta-data
+            android:name="solanamobile.dapp.icon"
+            android:resource="@mipmap/ic_launcher" />
+        <meta-data
+            android:name="solanamobile.dapp.website"
+            android:value="https://solstocks.com" />
+        
+        <!-- Solana Mobile Stack SDK -->
+        <meta-data
+            android:name="solanamobile.wallet.adapter.version"
+            android:value="2.2.2" />
+        
+        <!-- Network security config for development -->
+        <meta-data
+            android:name="android.net.usesCleartextTraffic"
+            android:value="true" />
+            
+        <!-- React Native related -->
+        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+    </application>
+</manifest>
