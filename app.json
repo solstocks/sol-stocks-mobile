@@ -1,4 +1,33 @@
 {
-  "name": "SolStocksMobile",
-  "displayName": "SolStocksMobile"
+  "expo": {
+    "name": "Sol Stocks Mobile",
+    "slug": "solstocks",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./img/background.png",
+    "userInterfaceStyle": "light",
+    "platforms": ["ios", "android", "web"],
+    "web": {
+      "bundler": "webpack",
+      "output": "dist",
+      "favicon": "./img/background.png"
+    },
+    "android": {
+      "package": "com.solstocks.mobile",
+      "adaptiveIcon": {
+        "foregroundImage": "./img/background.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.solstocks.mobile"
+    },
+    "scheme": "solstocks",
+    "plugins": [],
+    "metro": {
+      "resolver": {
+        "platforms": ["ios", "android", "native", "web"]
+      }
+    }
+  }
 }
